@@ -6,7 +6,7 @@ class BoardStorage {
   static async findAllByBoards() {
     const query = ``;
 
-    await mysql.query(query, [], (err, result) => {
+    return await mysql.query(query, [], (err, result) => {
       if (err) throw err;
       return result;
     });
@@ -15,7 +15,7 @@ class BoardStorage {
   static async findOneByBoardNum() {
     const query = ``;
 
-    await mysql.query(query, [], (err, result) => {
+    return await mysql.query(query, [], (err, result) => {
       if (err) throw err;
       return result;
     });
@@ -24,7 +24,7 @@ class BoardStorage {
   static async createBoard() {
     const query = ``;
 
-    await mysql.query(query, [], (err, result) => {
+    return await mysql.query(query, [], (err, result) => {
       if (err) throw err;
       return result;
     });
@@ -33,7 +33,7 @@ class BoardStorage {
   static async updateBoard() {
     const query = ``;
 
-    await mysql.query(query, [], (err, result) => {
+    return await mysql.query(query, [], (err, result) => {
       if (err) throw err;
       return result;
     });
@@ -42,7 +42,7 @@ class BoardStorage {
   static async deleteBoard() {
     const query = ``;
 
-    await mysql.query(query, [], (err, result) => {
+    return await mysql.query(query, [], (err, result) => {
       if (err) throw err;
       return result;
     });
