@@ -1,6 +1,6 @@
 'use strict';
 
-const mysql = require('');
+const mysql = require('../config/mysql');
 
 class BoardStorage {
   static async findAllByBoards() {
