@@ -30,6 +30,11 @@
 ### 💡 데이터베이스(mysql)
 
 #### 테이블 구조
+![테이블-구조](https://user-images.githubusercontent.com/46591459/147024017-d1bdbb67-2081-442e-8a92-198d5371ac7d.PNG)
+![DB-초기데이터](https://user-images.githubusercontent.com/46591459/147024746-6f7493be-f4dc-4cf3-85fa-d2449089fca9.PNG)
+
+
+
 
 ## 📝 과제 사용법
 
