@@ -1,51 +1,50 @@
-'use strict';
+"use strict";
 
-const mysql = require('../config/mysql');
+const mysql = require("../config/mysql");
 
 class BoardStorage {
   static async findAllByBoards() {
-    const query = ``;
+    const query = `SELECT * FROM boards`;
+    const allBoardsInfo = await mysql.query(query);
 
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+    return allBoardsInfo;
   }
 
-  static async findOneByBoardNum() {
-    const query = ``;
+  static async findOneByBoardNum(boardNo) {
+    const query = `SELECT * FROM boards WHERE no = ?`;
+    const oneBoardInfo = await mysql.query(query, [boardNo]);
 
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+    return oneBoardInfo[0];
   }
 
-  static async createBoard() {
-    const query = ``;
+  static async createBoard(board) {
+    const { no, writer, title, description, in_date } = board;
+    const query = `INSERT INTO boards(no, writer, title, description, in_date) VALUES (?, ?, ?, ?, ?);`;
+    const newBoard = mysql.query(query, [
+      no,
+      writer,
+      title,
+      description,
+      in_date,
+    ]);
 
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+    return newBoard;
   }
 
-  static async updateBoard() {
-    const query = ``;
+  static async updateBoard(boardInfo) {
+    const { no, writer, title, description } = boardInfo;
+    const query =
+      "UPDATE boards SET writer=?, title=?, description=? WHERE no=?;";
+    const editBoard = mysql.query(query, [writer, title, description, no]);
 
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+    return editBoard;
   }
 
-  static async deleteBoard() {
-    const query = ``;
+  static async deleteBoard(boardNo) {
+    const query = "DELETE FROM boards WHERE no = ?;";
+    const deleteBoardNo = mysql.query(query, [boardNo]);
 
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+    return deleteBoardNo;
   }
 }
 
