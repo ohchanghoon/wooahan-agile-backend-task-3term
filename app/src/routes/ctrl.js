@@ -15,7 +15,7 @@ const lookUp = {
   },
 
   searchForOneBoard: async (req, res) => {
-    const findBoardNo = req.params.no;
+    const findBoardNo = req.params.findBoardNo;
     const board = new Board();
     const response = await board.findOneBoard(findBoardNo);
 
@@ -53,7 +53,7 @@ const process = {
   },
 
   deleteBoard: async (req, res) => {
-    const deleteBoardNo = req.params.no;
+    const deleteBoardNo = req.params.delBoardNo;
     const board = new Board();
     const response = await board.dropBoard(deleteBoardNo);
 

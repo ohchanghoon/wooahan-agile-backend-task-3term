@@ -13,6 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 
 const board = require("./src/routes/index");
 
-app.use("/api/", board);
+app.use("/api/board", board);
 
 module.exports = app;

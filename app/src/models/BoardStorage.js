@@ -69,7 +69,7 @@ class BoardStorage {
 
   static async deleteBoard(boardNo) {
     try {
-      const query = "DELETE FROM boards WHERE no = ;";
+      const query = "DELETE FROM boards WHERE no = ?;";
       const result = await mysql.query(query, [boardNo]);
 
       if (result[0].affectedRows) {

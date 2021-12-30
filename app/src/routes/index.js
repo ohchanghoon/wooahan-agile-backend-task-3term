@@ -5,11 +5,11 @@ const router = express.Router();
 
 const ctrl = require("./ctrl");
 
-router.get("/boards", ctrl.lookUp.searchAllBoards);
-router.get("/board/:no", ctrl.lookUp.searchForOneBoard);
+router.get("/", ctrl.lookUp.searchAllBoards);
+router.get("/:findBoardNo", ctrl.lookUp.searchForOneBoard);
 
-router.post("/board/submit", ctrl.process.createBoard);
-router.put("/board/:no", ctrl.process.updateBoard);
-router.delete("/board/:no", ctrl.process.deleteBoard);
+router.post("/newBoard", ctrl.process.createBoard);
+router.put("/updateBoard", ctrl.process.updateBoard);
+router.delete("/:delBoardNo", ctrl.process.deleteBoard);
 
 module.exports = router;
