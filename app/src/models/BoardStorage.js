@@ -1,51 +1,43 @@
-'use strict';
+"use strict";
 
-const mysql = require('../config/mysql');
+const mysql = require("../config/mysql");
 
 class BoardStorage {
   static async findAllByBoards() {
-    const query = ``;
-
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+    const query = `SELECT * FROM boards;`;
+    return await mysql.query(query);
   }
 
-  static async findOneByBoardNum() {
-    const query = ``;
-
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+  static async findOneByBoardNum(userNum) {
+    const query = `SELECT * FROM boards Where no = ?;`;
+    const find = await mysql.query(query, [userNum]);
+    return find[0];
   }
 
-  static async createBoard() {
-    const query = ``;
-
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+  static async createBoard(userInfo) {
+    const query = `INSERT INTO boards(writer, title, description) VALUES(?, ?, ?);`;
+    const create = await mysql.query(query, [
+      userInfo.writer,
+      userInfo.title,
+      userInfo.description,
+    ]);
+    return create;
   }
 
-  static async updateBoard() {
-    const query = ``;
-
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+  static async updateBoard(userInfo) {
+    const query = `UPDATE boards SET title = ?, description = ? WHERE no = ?`;
+    const update = await mysql.query(query, [
+      userInfo.title,
+      userInfo.description,
+      userInfo.no,
+    ]);
+    return update;
   }
 
-  static async deleteBoard() {
-    const query = ``;
-
-    return await mysql.query(query, [], (err, result) => {
-      if (err) throw err;
-      return result;
-    });
+  static async deleteBoard(userNum) {
+    const query = `DELETE FROM boards WHERE no = ?`;
+    const del = await mysql.query(query, [userNum]);
+    return del[0];
   }
 }
 
