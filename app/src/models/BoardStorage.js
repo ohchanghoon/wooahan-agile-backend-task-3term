@@ -4,47 +4,82 @@ const mysql = require("../config/mysql");
 
 class BoardStorage {
   static async findAllByBoards() {
-    const query = `SELECT * FROM boards`;
-    const allBoardsInfo = await mysql.query(query);
+    try {
+      const query = `SELECT * FROM boards;`;
+      const allBoardsInfo = await mysql.query(query);
 
-    return allBoardsInfo;
+      return { success: true, boards: allBoardsInfo };
+    } catch (err) {
+      throw { err: "Server Error", code: err.code };
+    }
   }
 
   static async findOneByBoardNum(boardNo) {
-    const query = `SELECT * FROM boards WHERE no = ?`;
-    const oneBoardInfo = await mysql.query(query, [boardNo]);
+    try {
+      const query = `SELECT * FROM boards WHERE no = ?`;
+      const oneBoardInfo = await mysql.query(query, [boardNo]);
 
-    return oneBoardInfo[0];
+      if (oneBoardInfo[0].length) {
+        return { success: true, board: oneBoardInfo[0] };
+      } else {
+        return { success: false };
+      }
+    } catch (err) {
+      throw { err: "Server Error", code: err.code };
+    }
   }
 
-  static async createBoard(board) {
-    const { no, writer, title, description, in_date } = board;
-    const query = `INSERT INTO boards(no, writer, title, description, in_date) VALUES (?, ?, ?, ?, ?);`;
-    const newBoard = mysql.query(query, [
-      no,
-      writer,
-      title,
-      description,
-      in_date,
-    ]);
+  static async createBoard(boardInfo) {
+    try {
+      const { writer, title, description } = boardInfo;
+      const query = `INSERT INTO boards(writer, title, description) VALUES (?, ?, ?);`;
+      const newBoard = await mysql.query(query, [writer, title, description]);
 
-    return newBoard;
+      if (newBoard[0].affectedRows) {
+        return { success: true, newBoardNo: newBoard[0].insertId };
+      } else {
+        return { success: false };
+      }
+    } catch (err) {
+      throw { err: "Server Error", code: err.code };
+    }
   }
 
   static async updateBoard(boardInfo) {
-    const { no, writer, title, description } = boardInfo;
-    const query =
-      "UPDATE boards SET writer=?, title=?, description=? WHERE no=?;";
-    const editBoard = mysql.query(query, [writer, title, description, no]);
+    try {
+      const { no, writer, title, description } = boardInfo;
+      const query =
+        "UPDATE boards SET writer=?, title=?, description=? WHERE no=?;";
+      const editBoard = await mysql.query(query, [
+        writer,
+        title,
+        description,
+        no,
+      ]);
 
-    return editBoard;
+      if (editBoard[0].affectedRows) {
+        return { success: true, updateBoardNo: no };
+      } else {
+        return { success: false };
+      }
+    } catch (err) {
+      throw { err: "Server Error", code: err.code };
+    }
   }
 
   static async deleteBoard(boardNo) {
-    const query = "DELETE FROM boards WHERE no = ?;";
-    const deleteBoardNo = mysql.query(query, [boardNo]);
+    try {
+      const query = "DELETE FROM boards WHERE no = ;";
+      const result = await mysql.query(query, [boardNo]);
 
-    return deleteBoardNo;
+      if (result[0].affectedRows) {
+        return { success: true };
+      } else {
+        return { success: false };
+      }
+    } catch (err) {
+      throw { err: "Server Error", code: err.code };
+    }
   }
 }
 

@@ -4,40 +4,64 @@ const Board = require("../models/Board");
 
 const lookUp = {
   searchAllBoards: async (req, res) => {
-    const board = new Board(req.body);
+    const board = new Board();
     const response = await board.findAllBoards();
 
-    return res.json(response);
+    if (response.success) {
+      return res.status(200).json(response);
+    } else {
+      res.status(500).json(response);
+    }
   },
 
   searchForOneBoard: async (req, res) => {
-    const board = new Board(req.params.no);
-    const response = await board.findOneBoard();
+    const findBoardNo = req.params.no;
+    const board = new Board();
+    const response = await board.findOneBoard(findBoardNo);
 
-    return res.json(response);
+    if (response.success) {
+      return res.status(200).json(response);
+    } else {
+      res.status(500).json(response);
+    }
   },
 };
 
 const process = {
   createBoard: async (req, res) => {
-    const board = new Board(req.body);
-    const response = await board.newBoard();
+    const newBoardInfo = req.body;
+    const board = new Board();
+    const response = await board.newBoard(newBoardInfo);
 
-    return res.json(response);
+    if (response.success) {
+      return res.status(201).json(response);
+    } else {
+      res.status(500).json(response);
+    }
   },
 
   updateBoard: async (req, res) => {
-    const board = new Board(req.body);
-    const response = await board.editBoard();
+    const updateBoardInfo = req.body;
+    const board = new Board();
+    const response = await board.editBoard(updateBoardInfo);
 
-    return res.json(response);
+    if (response.success) {
+      return res.status(201).json(response);
+    } else {
+      res.status(500).json(response);
+    }
   },
 
   deleteBoard: async (req, res) => {
-    const board = new Board(req.params.no);
-    const response = await board.dropBoard();
+    const deleteBoardNo = req.params.no;
+    const board = new Board();
+    const response = await board.dropBoard(deleteBoardNo);
 
-    return res.json(response);
+    if (response.success) {
+      return res.status(201).json(response);
+    } else {
+      res.status(500).json(response);
+    }
   },
 };
 
